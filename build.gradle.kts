@@ -67,17 +67,25 @@ modstitch {
             // You can put any other replacement properties/metadata here that
             // modstitch doesn't initially support. Some examples below.
             put("mod_issue_tracker", "https://github.com/TUsama/Loot-Beams-Refork/issues")
+            // Resource pack format (this mod ships assets only, no data).
+            val pformat = when (property("deps.minecraft")) {
+                "1.20.1" -> 15
+                "1.21.1" -> 34
+                "1.21.4" -> 46
+                "1.21.8" -> 64
+                "1.21.10" -> 69
+                "1.21.11" -> 70.0
+                "26.1.2" -> 84
+                else -> throw IllegalArgumentException("Please store the resource pack version for ${property("deps.minecraft")} in build.gradle.kts! https://minecraft.wiki/w/Pack_format")
+            }
+            put("pformat", pformat.toString())
+            // Since 26.1, packs newer than format 64 must declare min_format/max_format
+            // instead of pack_format. A bare integer N means N.0 for min and N.* for max.
             put(
-                "pformat", when (property("deps.minecraft")) {
-                    "1.20.1" -> 15
-                    "1.21.1" -> 34
-                    "1.21.4" -> 46
-                    "1.21.8" -> 64
-                    "1.21.10" -> 69
-                    "1.21.11" -> 70.0
-                    "26.1.2" -> 84.0
-                    else -> throw IllegalArgumentException("Please store the resource pack version for ${property("deps.minecraft")} in build.gradle.kts! https://minecraft.wiki/w/Pack_format")
-                }.toString()
+                "pack_format_fields", when {
+                    stonecutter.current.parsed >= "26.1" -> "\"min_format\": $pformat,\n    \"max_format\": $pformat"
+                    else -> "\"pack_format\": $pformat"
+                }
             )
 
             put("target_minecraft", minecraft)

@@ -1,6 +1,6 @@
 {
   "pack": {
     "description": "${mod_description}",
-    "pack_format": ${pformat}
-}
+    ${pack_format_fields}
+  }
 }
