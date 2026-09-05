@@ -207,6 +207,23 @@ stonecutter {
         replace("\\bResourceLocation\\b" to "Identifier", "\\bIdentifier\\b" to "ResourceLocation")
     }
 
+    // Minecraft 26.1: pure renames/moves that need no per-version code.
+    replacements.regex(current.parsed >= "26.1") {
+        // GuiGraphics was renamed to GuiGraphicsExtractor.
+        replace("\\bGuiGraphics\\b" to "GuiGraphicsExtractor", "\\bGuiGraphicsExtractor\\b" to "GuiGraphics")
+        // LevelRenderState moved into the state.level package.
+        replace(
+            "\\bnet\\.minecraft\\.client\\.renderer\\.state\\.LevelRenderState\\b" to "net.minecraft.client.renderer.state.level.LevelRenderState",
+            "\\bnet\\.minecraft\\.client\\.renderer\\.state\\.level\\.LevelRenderState\\b" to "net.minecraft.client.renderer.state.LevelRenderState"
+        )
+        // LightTexture.FULL_BRIGHT is now LightCoordsUtil.FULL_BRIGHT.
+        replace(
+            "\\bnet\\.minecraft\\.client\\.renderer\\.LightTexture\\b" to "net.minecraft.util.LightCoordsUtil",
+            "\\bnet\\.minecraft\\.util\\.LightCoordsUtil\\b" to "net.minecraft.client.renderer.LightTexture"
+        )
+        replace("\\bLightTexture\\b" to "LightCoordsUtil", "\\bLightCoordsUtil\\b" to "LightTexture")
+    }
+
     replacements.string("ss_replacement", current.version.equals("1.20.1")) {
         replace("Styles.COMMON", "HelperMethods.getStyle(\"common\")")
         replace("Styles.UNIQUE", "HelperMethods.getStyle(\"unique\")")

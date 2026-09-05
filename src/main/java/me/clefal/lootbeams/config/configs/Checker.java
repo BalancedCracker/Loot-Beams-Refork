@@ -20,9 +20,13 @@ public class Checker {
         //? if <=1.21.1 {
         Item registryItem = BuiltInRegistries.ITEM.get(resourceLocation);
         return itemStack.is(registryItem.asItem());
-        //?} else {
+        //?} elif <26.1 {
         /*Optional<Holder.Reference<Item>> registryItem = BuiltInRegistries.ITEM.get(resourceLocation);
         return registryItem.isPresent() && registryItem.get().is(itemStack.getItemHolder());
+        *///?} else {
+        /*// 26.1: ItemStack#getItemHolder was replaced by ItemStack#typeHolder
+        Optional<Holder.Reference<Item>> registryItem = BuiltInRegistries.ITEM.get(resourceLocation);
+        return registryItem.isPresent() && registryItem.get().is(itemStack.typeHolder());
         *///?}
 
     }
@@ -47,7 +51,11 @@ public class Checker {
     }
 
     public boolean checkItemHasTagInTagList(ItemStack itemStack, ValidatedSet<String> tags) {
+        //? if <26.1 {
         return itemStack.getTags().map(x -> x.location().toString()).anyMatch(tags::contains);
+        //?} else {
+        /*return itemStack.typeHolder().tags().map(x -> x.location().toString()).anyMatch(tags::contains);
+        *///?}
     }
 
     public boolean checkIsInThisModList(ItemStack itemStack, ValidatedSet<String> modId) {
@@ -59,7 +67,11 @@ public class Checker {
     }
 
     public boolean checkItemHasTagInTagList(LBItemEntity lbItemEntity, ValidatedSet<String> tags) {
+        //? if <26.1 {
         return lbItemEntity.item().getItem().getTags().map(x -> x.location().toString()).anyMatch(tags::contains);
+        //?} else {
+        /*return lbItemEntity.item().getItem().typeHolder().tags().map(x -> x.location().toString()).anyMatch(tags::contains);
+        *///?}
     }
 
     public boolean checkIsInThisModList(LBItemEntity lbItemEntity, ValidatedSet<String> modId) {

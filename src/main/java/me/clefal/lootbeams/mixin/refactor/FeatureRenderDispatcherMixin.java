@@ -25,6 +25,18 @@ public class FeatureRenderDispatcherMixin {
     @Final
     private MultiBufferSource.BufferSource bufferSource;
 
+    //? if >=26.1 {
+    /^// 26.1 split renderAllFeatures into renderSolidFeatures / renderTranslucentFeatures /
+    // renderTranslucentParticles. Beams and name tags go after the translucent particles,
+    // which is the same point in the frame as before; LevelRenderer ends the batch right after.
+    @Inject(
+            method = "renderTranslucentParticles", at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/renderer/feature/ParticleFeatureRenderer;renderTranslucent(Lnet/minecraft/client/renderer/SubmitNodeCollection;)V",
+            shift = At.Shift.AFTER
+
+    ))
+    ^///?} else {
     @Inject(
             method = "renderAllFeatures", at = @At(
             value = "INVOKE",
@@ -32,6 +44,7 @@ public class FeatureRenderDispatcherMixin {
             shift = At.Shift.AFTER
 
     ))
+    //?}
     private void doLBRender(CallbackInfo ci, @Local SubmitNodeCollection submitnodecollection){
         LootBeamRenderStateStorage lbSubmitter = (LootBeamRenderStateStorage) submitnodecollection;
         for (LootBeamRenderState.BeamRenderState lootBeamRenderState : lbSubmitter.loot_Beams_Refork$getBeamRenderStates()) {

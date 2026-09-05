@@ -79,7 +79,8 @@ object NeoForgeDeps {
                 }
 
                 "26.1.2" -> {
-                    // No compat mods have 26.1.2 builds yet; core functionality only.
+                    // Iris 1.11.3+26.1-neoforge (Modrinth version id YuBfnIgK)
+                    modstitchModCompileOnly("maven.modrinth:iris:YuBfnIgK")
                 }
             }
         }

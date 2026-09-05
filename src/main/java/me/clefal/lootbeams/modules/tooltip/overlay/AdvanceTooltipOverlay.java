@@ -7,7 +7,7 @@ import me.clefal.lootbeams.data.lbitementity.LBItemEntityCache;
 import me.clefal.lootbeams.events.TooltipsGatherNameAndRarityEvent;
 import me.clefal.lootbeams.modules.tooltip.LootInformationEnableStatus;
 import com.mojang.blaze3d.platform.Window;
-//? if ~ 1.21
+//? if >=1.21
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -108,8 +108,8 @@ public class AdvanceTooltipOverlay {
         }
 
     }
-//? if ~1.21 {
-    
+//? if >=1.21 {
+
     public void render(GuiGraphics guiGraphics, DeltaTracker tracker) {
         //cannot request this when register overlay, so I have to put it at here.
         if (LootInfomationConfig.lootInfomationConfig.lootInformationControl.loot_information_status != LootInformationEnableStatus.LootInformationStatus.NAME_AND_RARITY_IN_TOOLTIPS)
@@ -141,7 +141,7 @@ public class AdvanceTooltipOverlay {
 
     }
 
-     //?}
+    //?}
     //? if = 1.20.1 {
     /*public void render(GuiGraphics guiGraphics, float partialTick) {
         //cannot request this when register overlay, so I have to put it at here.

@@ -36,7 +36,11 @@ public class ConfigColorOverride extends ModifyingConfigHandler {
 
 
         Supplier<Optional<ValidatedColor.ColorHolder>> o1 = () -> {
+            //? if <26.1 {
             return item.getTags()
+            //?} else {
+            /*return item.typeHolder().tags()
+            *///?}
                     .map(x -> x.location().toString())
                     .filter(x -> customColorSetting.color_override_by_tag.containsKey("#" + x))
                     .findFirst()
