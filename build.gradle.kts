@@ -293,6 +293,13 @@ dependencies {
 
 }
 
+// NOTE: Modrinth/CurseForge auto-publishing is disabled for local/dev builds.
+// The original config eagerly read access tokens from hardcoded Windows paths
+// (D:\curseforge-key.txt, D:\modrinth-key.txt) during Gradle configuration,
+// which crashes the build on any machine without those exact files. Re-enable
+// by restoring this block (with real, machine-appropriate token paths) only
+// when you actually intend to publish.
+/*
 msPublishing {
 
     mpp {
@@ -345,3 +352,4 @@ msPublishing {
     }
 
 }
+*/
