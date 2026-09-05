@@ -51,10 +51,12 @@ public class Checker {
     }
 
     public boolean checkItemHasTagInTagList(ItemStack itemStack, ValidatedSet<String> tags) {
+        // Config tag entries are stored with a leading '#' (validated by "#.+:.+"),
+        // so compare against the same "#namespace:path" form.
         //? if <26.1 {
-        return itemStack.getTags().map(x -> x.location().toString()).anyMatch(tags::contains);
+        return itemStack.getTags().map(x -> "#" + x.location()).anyMatch(tags::contains);
         //?} else {
-        /*return itemStack.typeHolder().tags().map(x -> x.location().toString()).anyMatch(tags::contains);
+        /*return itemStack.typeHolder().tags().map(x -> "#" + x.location()).anyMatch(tags::contains);
         *///?}
     }
 
@@ -67,11 +69,7 @@ public class Checker {
     }
 
     public boolean checkItemHasTagInTagList(LBItemEntity lbItemEntity, ValidatedSet<String> tags) {
-        //? if <26.1 {
-        return lbItemEntity.item().getItem().getTags().map(x -> x.location().toString()).anyMatch(tags::contains);
-        //?} else {
-        /*return lbItemEntity.item().getItem().typeHolder().tags().map(x -> x.location().toString()).anyMatch(tags::contains);
-        *///?}
+        return checkItemHasTagInTagList(lbItemEntity.item().getItem(), tags);
     }
 
     public boolean checkIsInThisModList(LBItemEntity lbItemEntity, ValidatedSet<String> modId) {

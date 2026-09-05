@@ -40,6 +40,9 @@ public class CustomConfig extends Config {
         private List<String> defaultmodid = ImmutableList.of("weaponmod");
         private List<String> defaultTags = ImmutableList.of("#minecraft:swords",
                 "#minecraft:axes",
+                "#minecraft:pickaxes",
+                "#minecraft:shovels",
+                "#minecraft:hoes",
                 "#forge:tools/tridents",
                 "#c:spears",
                 "#c:tools/daggers",
