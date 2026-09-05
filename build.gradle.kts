@@ -35,6 +35,7 @@ modstitch {
         "1.21.1" -> 21
         "1.21.4" -> 21
         "1.21.8", "1.21.10", "1.21.11" -> 21
+        "26.1.2" -> 25
         else -> throw IllegalArgumentException("Please store the java version for $minecraft in build.gradle.kts!")
     }
 
@@ -74,6 +75,7 @@ modstitch {
                     "1.21.8" -> 64
                     "1.21.10" -> 69
                     "1.21.11" -> 70.0
+                    "26.1.2" -> 84.0
                     else -> throw IllegalArgumentException("Please store the resource pack version for ${property("deps.minecraft")} in build.gradle.kts! https://minecraft.wiki/w/Pack_format")
                 }.toString()
             )
@@ -160,7 +162,7 @@ modstitch {
             isModDevGradleLegacy -> configs.register("${mid}-1.20.1")
             minecraft == "1.21.1" -> configs.register("${mid}-1.21")
             minecraft == "1.21.4" -> configs.register("${mid}-1.21.4")
-            minecraft == "1.21.10" || minecraft == "1.21.11" -> configs.register("${mid}-1.21.10")
+            minecraft == "1.21.10" || minecraft == "1.21.11" || minecraft == "26.1.2" -> configs.register("${mid}-1.21.10")
             else -> configs.register("${mid}-default")
         }
 
@@ -238,6 +240,7 @@ dependencies {
         "1.21.4" -> "1.21.3"
         "1.21.8" -> "1.21.6"
         "1.21.10" -> "1.21.9"
+        "26.1.2" -> "26.1"
         else -> minecraft
     }
     var fzzyString : String = "";
