@@ -4,6 +4,7 @@
   "name": "${mod_name}",
   "version": "${mod_version}",
   "description": "${mod_description}",
+  "icon": "assets/${mod_id}/${mod_id}.png",
   "environment": "*",
   "entrypoints": {
     "main": [

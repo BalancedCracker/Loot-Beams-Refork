@@ -43,6 +43,7 @@ public class CustomConfig extends Config {
                 "#minecraft:pickaxes",
                 "#minecraft:shovels",
                 "#minecraft:hoes",
+                "#minecraft:spears",
                 "#forge:tools/tridents",
                 "#c:spears",
                 "#c:tools/daggers",
