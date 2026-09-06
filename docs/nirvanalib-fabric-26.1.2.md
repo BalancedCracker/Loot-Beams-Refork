@@ -45,6 +45,9 @@ Apply these changes to the clone:
 5. `build.gradle.kts`: comment out the `msPublishing { ... }` block. It reads
    Modrinth/CurseForge tokens from hardcoded `D:\` paths at configuration time
    and fails on any other machine.
+6. `src/main/templates/fabric.mod.json`: change the dependency `"fabric": "*"`
+   to `"fabric-api": "*"`. Fabric API for 26.1 no longer provides the legacy
+   `fabric` mod id, so the loader cannot satisfy the old dependency.
 
 Then build:
 
