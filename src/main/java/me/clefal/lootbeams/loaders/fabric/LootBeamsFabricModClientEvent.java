@@ -32,7 +32,13 @@ import me.clefal.lootbeams.compat.multiversion_compat.SimpleSwordCompatModule;
 import me.clefal.lootbeams.config.ConfigHandlers;
 import me.clefal.lootbeams.modules.ModulesManager;
 import me.clefal.lootbeams.modules.tooltip.overlay.AdvanceTooltipOverlay;
+import me.clefal.lootbeams.CommonClass;
+//? if >=26.1 {
+/^import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
+^///?} else {
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+//?}
 
 
 public class LootBeamsFabricModClientEvent {
@@ -44,7 +50,12 @@ public class LootBeamsFabricModClientEvent {
 
 
     public static void registerOverlay() {
+        //? if >=26.1 {
+        /^// Fabric API for 26.1 dropped HudRenderCallback; HUD layers go through HudElementRegistry.
+        HudElementRegistry.attachElementAfter(VanillaHudElements.CROSSHAIR, CommonClass.id("lb_tooltips"), AdvanceTooltipOverlay.INSTANCE::render);
+        ^///?} else {
         HudRenderCallback.EVENT.register(AdvanceTooltipOverlay.INSTANCE::render);
+        //?}
     }
 
 

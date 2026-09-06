@@ -73,6 +73,11 @@ object LoomDeps {
                 "1.21.11" ->{
                     modstitchModCompileOnly ("curse.maven:irisshaders-455508:7525082")
                 }
+
+                "26.1.2" -> {
+                    // Iris 1.11.3+26.1-fabric (Modrinth version id 5H9TsVy4)
+                    modstitchModCompileOnly ("maven.modrinth:iris:5H9TsVy4")
+                }
             }
         }
     }

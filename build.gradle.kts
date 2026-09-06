@@ -112,7 +112,7 @@ modstitch {
     loom {
         // It's not recommended to store the Fabric Loader version in properties.
         // Make sure its up to date.
-        fabricLoaderVersion = "0.16.11"
+        fabricLoaderVersion = if (minecraft == "26.1.2") "0.19.5" else "0.16.11"
         configureLoom {
             runs {
                 all {
@@ -185,6 +185,19 @@ modstitch {
 base {
     val meta = modstitch.metadata
     archivesName = "${meta.modName.get()}-${loader}-${minecraft}"
+}
+
+// Compile each target with JDK 21, or newer when the target needs it (26.1 = 25).
+// modstitch only sets source/target compatibility, so without a toolchain javac
+// comes from the Gradle daemon JVM. The daemon is pinned to Java 25 for Fabric
+// Loom on 26.1 (see gradle/gradle-daemon-jvm.properties), and javac 25 rejects
+// some 1.21.x compat-mod class files that javac 21 accepts. JDK 21 (not 17) is
+// the floor because the 1.20.1 NirvanaLib jars are compiled for Java 21, which
+// javac 17 cannot read even with source/target 17.
+java {
+    toolchain {
+        languageVersion = modstitch.javaVersion.map { JavaLanguageVersion.of(maxOf(it, 21)) }
+    }
 }
 
 // Stonecutter constants for mod loaders.
@@ -306,7 +319,11 @@ dependencies {
     modstitchModCompileOnly(fzzyString)
     (fzzyString).runtimeOnly()
 
-    ("maven.modrinth:nirvana-library:${loader}-${minecraft}-${libVersion}").implementation()
+    // NirvanaLib has no published Fabric build for 26.1.2 yet. Until upstream publishes one,
+    // the 26.1.2 Fabric target resolves a locally built jar from mavenLocal (~/.m2) under the
+    // group "local.nirvanalib"; see docs/nirvanalib-fabric-26.1.2.md for how to build/install it.
+    val nirvanaGroup = if (loader == "fabric" && minecraft == "26.1.2") "local.nirvanalib" else "maven.modrinth"
+    ("${nirvanaGroup}:nirvana-library:${loader}-${minecraft}-${libVersion}").implementation()
     ("maven.modrinth:common-network:${property("deps.common_network")}").runtimeOnly()
     //loader-specified deps
     DependencyConfig.getDependencies(loaderEnum, minecraft).forEach { dep ->
