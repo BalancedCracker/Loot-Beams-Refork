@@ -236,7 +236,18 @@ msShadow {
     // NeoForge it must stay un-relocated, or the loader would no longer recognise
     // @SubscribeEvent on our @EventBusSubscriber classes.
     if (!modstitch.isModDevGradleRegular) {
-        dependency("net.neoforged:bus:8.0.5", mapOf("net.neoforged.bus" to "net.neoforged.bus"))
+        dependency("net.neoforged:bus:8.0.5", mapOf("net.neoforged.bus" to "net.neoforged.bus")) {
+            // The bus drags in ASM, log4j and modlauncher, and only the bus itself has a
+            // relocation rule, so those would land in the jar under their original names and
+            // shadow the game's own copies. An unrelocated ASM is fatal: Mixin then fails to
+            // verify its own classes and the game dies before the title screen. The platform
+            // provides all three anyway.
+            exclude(group = "org.ow2.asm")
+            exclude(group = "org.apache.logging.log4j")
+            exclude(group = "cpw.mods", module = "modlauncher")
+            // Declared below with its own relocation rule.
+            exclude(group = "net.jodah")
+        }
         dependency("net.jodah:typetools:0.6.3", mapOf("net.jodah" to "net.jodah"))
     }
 }
