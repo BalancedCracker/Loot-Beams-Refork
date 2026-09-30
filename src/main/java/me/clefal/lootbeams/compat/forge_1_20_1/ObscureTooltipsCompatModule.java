@@ -6,9 +6,9 @@ import me.clefal.lootbeams.modules.ILBCompatModule;
 import me.clefal.lootbeams.config.configs.LootInfomationConfig;
 import me.clefal.lootbeams.events.TooltipsGatherNameAndRarityEvent;
 import me.clefal.lootbeams.modules.tooltip.LootInformationEnableStatus;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.EventPriority;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
-import com.clefal.nirvana_lib.utils.ModUtils;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import me.clefal.lootbeams.utils.ModUtils;
 import com.obscuria.tooltips.ObscureTooltips;
 
 

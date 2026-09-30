@@ -1,6 +1,6 @@
 package me.clefal.lootbeams.events;
 
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.Event;
+import net.neoforged.bus.api.Event;
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 
 import java.util.ArrayList;

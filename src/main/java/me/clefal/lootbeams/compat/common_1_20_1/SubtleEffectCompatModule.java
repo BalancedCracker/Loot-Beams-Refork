@@ -1,7 +1,7 @@
 //? if =1.20.1 {
 /*package me.clefal.lootbeams.compat.common_1_20_1;
 
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.modules.ILBCompatModule;
 import me.clefal.lootbeams.utils.ResourceLocationHelper;

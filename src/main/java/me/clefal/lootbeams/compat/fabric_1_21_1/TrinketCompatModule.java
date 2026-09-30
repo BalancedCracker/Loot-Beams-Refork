@@ -1,8 +1,8 @@
 //? if =1.21.1 && fabric {
 /*package me.clefal.lootbeams.compat.fabric_1_21_1;
 
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
-import com.clefal.nirvana_lib.utils.ModUtils;
+import net.neoforged.bus.api.SubscribeEvent;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.events.RegisterConfigConditionEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;

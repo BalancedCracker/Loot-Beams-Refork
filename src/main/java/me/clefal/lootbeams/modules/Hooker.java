@@ -1,6 +1,6 @@
 package me.clefal.lootbeams.modules;
 
-import com.clefal.nirvana_lib.relocated.io.vavr.Tuple3;
+import io.vavr.Tuple3;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.config.configs.LightConfig;
 import me.clefal.lootbeams.config.configs.LootInfomationConfig;

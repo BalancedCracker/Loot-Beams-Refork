@@ -1,12 +1,12 @@
 //? if forge {
 /*package me.clefal.lootbeams.compat.forge_1_20_1;
 
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.config.configs.Checker;
 import me.clefal.lootbeams.events.RegisterConfigConditionEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import com.google.common.collect.Sets;
 import com.oblivioussp.spartanweaponry.api.SpartanWeaponryAPI;
 

@@ -1,8 +1,8 @@
 //? >= 1.21.10 {
 /*package me.clefal.lootbeams.mixin.refactor;
 
-import com.clefal.nirvana_lib.relocated.io.vavr.Tuple;
-import com.clefal.nirvana_lib.relocated.io.vavr.Tuple3;
+import io.vavr.Tuple;
+import io.vavr.Tuple3;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.clefal.lootbeams.modules.Hooker;

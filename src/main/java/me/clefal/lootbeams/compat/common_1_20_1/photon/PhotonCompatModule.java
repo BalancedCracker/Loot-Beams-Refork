@@ -1,11 +1,11 @@
 //? if =1.20.1 {
 /*package me.clefal.lootbeams.compat.common_1_20_1.photon;
 
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.events.EntityRenderDispatcherHookEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import me.fzzyhmstrs.fzzy_config.util.EnumTranslatable;
 import me.fzzyhmstrs.fzzy_config.util.Walkable;
 

@@ -1,7 +1,7 @@
 //? if =1.20.1 && fabric {
 /*package me.clefal.lootbeams.compat.fabric_1_20_1;
 
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.clefal.lootbeams.data.lbitementity.rarity.LBColor;
@@ -9,9 +9,9 @@ import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
 import me.clefal.lootbeams.events.RegisterLBRarityEvent;
 import me.clefal.lootbeams.events.TooltipsGatherNameAndRarityEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
-import com.clefal.nirvana_lib.relocated.io.vavr.collection.List;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import io.vavr.collection.List;
+import io.vavr.control.Option;
+import net.neoforged.bus.api.SubscribeEvent;
 import draylar.tiered.api.PotentialAttribute;
 import elocindev.tierify.Tierify;
 import net.minecraft.network.chat.Component;

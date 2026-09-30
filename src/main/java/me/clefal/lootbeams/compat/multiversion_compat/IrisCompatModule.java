@@ -1,7 +1,7 @@
 package me.clefal.lootbeams.compat.multiversion_compat;
 
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
-import com.clefal.nirvana_lib.utils.ModUtils;
+import net.neoforged.bus.api.SubscribeEvent;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.events.EntityRenderDispatcherHookEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;

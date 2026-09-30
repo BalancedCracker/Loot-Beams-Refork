@@ -4,6 +4,8 @@ import deps.Loaders
 plugins {
     id("dev.isxander.modstitch.base") version "clefal-version"
     id("dev.isxander.modstitch.publishing") version "clefal-version"
+    // Bundles the small libraries the mod uses (see the msShadow block below).
+    id("dev.isxander.modstitch.shadow") version "clefal-version"
     id ("org.jetbrains.kotlin.jvm") version "2.1.10"
     id ("org.jetbrains.kotlin.plugin.serialization") version "2.1.10"
 }
@@ -24,6 +26,12 @@ val loader = when {
 }
 
 val minecraft = property("deps.minecraft") as String
+
+// Targets that carry their own copies of the libraries NirvanaLib used to provide, and so need
+// no library mod at runtime. Older targets keep NirvanaLib: 1.21.4 and below use its
+// RenderTypeCreator, and leaving the rest untouched keeps the already published targets'
+// dependency profile exactly as it is.
+val vendoredLibs = minecraft == "26.1.2"
 
 modstitch {
     minecraftVersion = minecraft
@@ -105,6 +113,23 @@ modstitch {
             )
             put("fzzy_config_version", property("deps.fzzy_config_version") as String)
             put("lib_version", property("deps.lib_version") as String)
+            // The library-mod dependency entry, or nothing at all when the libraries are
+            // bundled. Each loader's manifest has its own syntax, and only ever reads its own.
+            put(
+                "nirvana_depends", when {
+                    vendoredLibs -> ""
+                    loader == "fabric" -> "\n    \"nirvana_lib\": \">=${property("deps.lib_version")}\","
+                    else -> """
+                        |
+                        |[[dependencies.${mid}]]
+                        |modId = "nirvana_lib"
+                        |mandatory = true
+                        |versionRange = "[${property("deps.lib_version")},)"
+                        |ordering = "AFTER"
+                        |side = "CLIENT"
+                    """.trimMargin()
+                }
+            )
         }
     }
 
@@ -197,6 +222,32 @@ base {
 java {
     toolchain {
         languageVersion = modstitch.javaVersion.map { JavaLanguageVersion.of(maxOf(it, 21)) }
+    }
+}
+
+// Libraries bundled into the mod jar, relocated so they cannot clash with another mod's copy.
+// The sources import the plain coordinates; relocation rewrites those references at jar time.
+msShadow {
+    relocatePackage.set("me.clefal.lootbeams.relocated")
+    // Option/Tuple/pattern matching, used throughout the mod. Apache-2.0.
+    dependency("io.vavr:vavr:0.11.0", mapOf("io.vavr" to "io.vavr"))
+    // Backs the mod's own internal EVENT_BUS. Only NeoForge ships this bus (Forge 1.20.1 has
+    // net.minecraftforge.eventbus instead), so everything else needs a bundled copy -- and on
+    // NeoForge it must stay un-relocated, or the loader would no longer recognise
+    // @SubscribeEvent on our @EventBusSubscriber classes.
+    if (!modstitch.isModDevGradleRegular) {
+        dependency("net.neoforged:bus:8.0.5", mapOf("net.neoforged.bus" to "net.neoforged.bus"))
+        dependency("net.jodah:typetools:0.6.3", mapOf("net.jodah" to "net.jodah"))
+    }
+}
+
+// Loom's no-remap platform (26.1 Fabric) has no remapJar to hand the shadowed jar to, so
+// modstitch leaves it as a "dev-fat" jar in build/devlibs while the real `jar` task stays
+// disabled. Publish the shadowed jar as the normal artifact instead.
+if (findProperty("modstitch.platform") == "fabric-loom") {
+    tasks.named<AbstractArchiveTask>("shadowJar") {
+        archiveClassifier = ""
+        destinationDirectory = layout.buildDirectory.dir("libs")
     }
 }
 
@@ -319,12 +370,20 @@ dependencies {
     modstitchModCompileOnly(fzzyString)
     (fzzyString).runtimeOnly()
 
-    // NirvanaLib has no published Fabric build for 26.1.2 yet. Until upstream publishes one,
-    // the 26.1.2 Fabric target resolves a locally built jar from mavenLocal (~/.m2) under the
-    // group "local.nirvanalib"; see docs/nirvanalib-fabric-26.1.2.md for how to build/install it.
-    val nirvanaGroup = if (loader == "fabric" && minecraft == "26.1.2") "local.nirvanalib" else "maven.modrinth"
-    ("${nirvanaGroup}:nirvana-library:${loader}-${minecraft}-${libVersion}").implementation()
-    ("maven.modrinth:common-network:${property("deps.common_network")}").runtimeOnly()
+    // The bundled libraries (see msShadow above) also have to be on the compile classpath.
+    // Only NeoForge provides the event bus itself, so every other loader needs the artifact.
+    modstitchImplementation("io.vavr:vavr:0.11.0")
+    if (!modstitch.isModDevGradleRegular) {
+        modstitchImplementation("net.neoforged:bus:8.0.5")
+        modstitchImplementation("net.jodah:typetools:0.6.3")
+    }
+
+    // Targets that still use NirvanaLib. common-network is NirvanaLib's own requirement, so it
+    // is only needed alongside it.
+    if (!vendoredLibs) {
+        ("maven.modrinth:nirvana-library:${loader}-${minecraft}-${libVersion}").implementation()
+        ("maven.modrinth:common-network:${property("deps.common_network")}").runtimeOnly()
+    }
     //loader-specified deps
     DependencyConfig.getDependencies(loaderEnum, minecraft).forEach { dep ->
         dependencies.add(dep.configuration, dep.notation, dep.options)

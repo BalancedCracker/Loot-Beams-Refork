@@ -5,7 +5,7 @@ import me.clefal.lootbeams.data.lbitementity.rarity.ILBRarityApplier;
 import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
 import me.clefal.lootbeams.events.RegisterLBRarityEvent;
 import me.clefal.lootbeams.modules.ILBModulePersistentData;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
+import io.vavr.control.Option;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Rarity;
 

@@ -22,9 +22,4 @@ modId = "minecraft"
 versionRange = "${target_minecraft}"
 mandatory = true
 
-[[dependencies.${mod_id}]]
-modId = "nirvana_lib"
-mandatory = true
-versionRange = "[${lib_version},)"
-ordering = "AFTER"
-side = "CLIENT"
+${nirvana_depends}

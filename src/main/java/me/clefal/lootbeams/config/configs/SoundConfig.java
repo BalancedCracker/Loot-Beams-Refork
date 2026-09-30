@@ -1,6 +1,6 @@
 package me.clefal.lootbeams.config.configs;
 
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.utils.ResourceLocationHelper;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;

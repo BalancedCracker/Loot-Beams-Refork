@@ -1,7 +1,7 @@
 package me.clefal.lootbeams;
 
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.BusBuilder;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.BusBuilder;
+import net.neoforged.bus.api.IEventBus;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.slf4j.Logger;

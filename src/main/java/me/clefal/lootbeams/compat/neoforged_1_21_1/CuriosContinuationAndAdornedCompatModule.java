@@ -1,7 +1,7 @@
 //? if =1.21.1 && neoforge {
 package me.clefal.lootbeams.compat.neoforged_1_21_1;
 
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.events.RegisterConfigConditionEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;

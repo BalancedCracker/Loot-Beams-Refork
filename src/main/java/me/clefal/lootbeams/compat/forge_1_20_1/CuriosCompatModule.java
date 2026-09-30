@@ -1,11 +1,11 @@
 //? if forge {
 /*package me.clefal.lootbeams.compat.forge_1_20_1;
 
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.modules.ILBCompatModule;
 import me.clefal.lootbeams.events.RegisterConfigConditionEvent;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 
 public class CuriosCompatModule implements ILBCompatModule {

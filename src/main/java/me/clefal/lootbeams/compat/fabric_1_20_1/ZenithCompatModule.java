@@ -1,7 +1,7 @@
 //? if =1.20.1 && fabric {
 /*package me.clefal.lootbeams.compat.fabric_1_20_1;
 
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.clefal.lootbeams.data.lbitementity.rarity.LBColor;
@@ -14,11 +14,11 @@ import dev.shadowsoffire.apotheosis.adventure.affix.salvaging.SalvageItem;
 import dev.shadowsoffire.apotheosis.adventure.loot.RarityRegistry;
 import dev.shadowsoffire.apotheosis.adventure.socket.gem.GemInstance;
 import dev.shadowsoffire.apotheosis.adventure.socket.gem.GemItem;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import io.vavr.control.Option;
+import net.neoforged.bus.api.SubscribeEvent;
 
 
-import static com.clefal.nirvana_lib.relocated.io.vavr.API.*;
+import static io.vavr.API.*;
 
 
 public class ZenithCompatModule implements ILBCompatModule {

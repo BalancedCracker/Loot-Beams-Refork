@@ -1,7 +1,7 @@
 //? if forge {
 /*package me.clefal.lootbeams.compat.forge_1_20_1.mine_and_slash;
 
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.clefal.lootbeams.data.lbitementity.rarity.LBColor;
@@ -9,7 +9,7 @@ import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
 import me.clefal.lootbeams.events.RegisterConfigConditionEvent;
 import me.clefal.lootbeams.events.RegisterLBRarityEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import com.robertx22.addons.orbs_of_crafting.currency.IItemAsCurrency;
 import com.robertx22.mine_and_slash.database.data.gear_slots.GearSlot;
 import com.robertx22.mine_and_slash.database.data.gear_types.bases.SlotFamily;
@@ -24,7 +24,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.clefal.nirvana_lib.relocated.io.vavr.API.*;
+import static io.vavr.API.*;
 
 public class MineAndSlashCompatModule implements ILBCompatModule {
 

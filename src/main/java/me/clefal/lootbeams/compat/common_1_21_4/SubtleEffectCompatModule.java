@@ -1,7 +1,7 @@
 //? if =1.21.4 {
 /*package me.clefal.lootbeams.compat.common_1_21_4;
 
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.CommonClass;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.modules.ILBCompatModule;

@@ -1,6 +1,6 @@
 package me.clefal.lootbeams.config;
 
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.config.impl.IConfigReloadable;
 import me.clefal.lootbeams.config.impl.ModifyingConfigHandler;

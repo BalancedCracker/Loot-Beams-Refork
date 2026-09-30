@@ -8,9 +8,9 @@ import me.clefal.lootbeams.events.EntityRenderDispatcherHookEvent;
 import me.clefal.lootbeams.events.TooltipsGatherNameAndRarityEvent;
 import me.clefal.lootbeams.modules.ILBModule;
 import me.clefal.lootbeams.modules.tooltip.nametag.NameTagRenderer;
-import com.clefal.nirvana_lib.relocated.io.vavr.API;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.EventPriority;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import io.vavr.API;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -23,8 +23,8 @@ import net.minecraft.network.chat.contents.PlainTextContents;
 *///?}
 import java.util.Map;
 
-import static com.clefal.nirvana_lib.relocated.io.vavr.API.$;
-import static com.clefal.nirvana_lib.relocated.io.vavr.API.Case;
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
 
 public class TooltipsModule implements ILBModule {
 

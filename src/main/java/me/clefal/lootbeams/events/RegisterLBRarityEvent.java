@@ -2,7 +2,7 @@ package me.clefal.lootbeams.events;
 
 import me.clefal.lootbeams.data.lbitementity.rarity.ILBRarityApplier;
 import lombok.Getter;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.Event;
+import net.neoforged.bus.api.Event;
 
 import java.util.List;
 import java.util.function.Consumer;

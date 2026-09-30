@@ -1,7 +1,7 @@
 //? if =1.21.1 && neoforge {
 package me.clefal.lootbeams.compat.neoforged_1_21_1;
 
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.clefal.lootbeams.data.lbitementity.rarity.LBColor;
@@ -9,7 +9,7 @@ import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
 import me.clefal.lootbeams.events.RegisterConfigConditionEvent;
 import me.clefal.lootbeams.events.RegisterLBRarityEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
+import io.vavr.control.Option;
 import dev.shadowsoffire.apotheosis.Apotheosis;
 import dev.shadowsoffire.apotheosis.affix.AffixHelper;
 import dev.shadowsoffire.apotheosis.affix.salvaging.SalvageItem;
@@ -20,7 +20,7 @@ import net.neoforged.fml.ModList;
 
 import java.awt.*;
 
-import static com.clefal.nirvana_lib.relocated.io.vavr.API.*;
+import static io.vavr.API.*;
 
 public class ApotheosisCompatModule implements ILBCompatModule {
     public final static ApotheosisCompatModule INSTANCE = new ApotheosisCompatModule();
