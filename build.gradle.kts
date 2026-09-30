@@ -1,5 +1,8 @@
 import deps.DependencyConfig
 import deps.Loaders
+// Fully qualifying this below would not work: in a build script `java` resolves to Gradle's
+// own java extension, not to the package.
+import java.util.zip.ZipFile
 
 plugins {
     id("dev.isxander.modstitch.base") version "clefal-version"
@@ -261,6 +264,59 @@ if (findProperty("modstitch.platform") == "fabric-loom") {
         destinationDirectory = layout.buildDirectory.dir("libs")
     }
 }
+
+// Guard for the bundled libraries. Anything in the jar outside these roots is a copy of some
+// library under its original name, which shadows the game's own copy: that is how an
+// unrelocated ASM once made Mixin fail to verify itself and killed the client before the title
+// screen. A dev run cannot catch it, because runClient loads the mod from build/classes with
+// Gradle's own classpath and never touches the shaded jar -- so check the jar itself.
+val allowedJarRoots = listOf(
+    "me/clefal/lootbeams/", // the mod, including the libraries relocated underneath it
+    "assets/",
+    "data/",
+    "META-INF/",
+    "org/jspecify/",        // annotations only, arrives with vavr, inert at runtime
+)
+val verifyJarContents = tasks.register("verifyJarContents") {
+    group = "verification"
+    description = "Fails if the mod jar bundles packages that could shadow the game's libraries."
+    // Not modstitch.finalJarTask on the no-remap Loom platform: there it still points at the
+    // `jar` task, which the shadow plugin disables, so the check would depend on nothing and
+    // happily inspect a stale jar from an earlier build.
+    val finalJarTaskName = when {
+        findProperty("modstitch.platform") == "fabric-loom" -> "shadowJar"
+        else -> modstitch.finalJarTask.name
+    }
+    val finalJar = tasks.named<AbstractArchiveTask>(finalJarTaskName).flatMap { it.archiveFile }
+    inputs.file(finalJar)
+    doLast {
+        val jarFile = finalJar.get().asFile
+        val offenders = ZipFile(jarFile).use { zip ->
+            zip.entries().asSequence()
+                .map { it.name }
+                .filter { !it.endsWith("/") }
+                .filter { name ->
+                    // Root level holds only our own manifests and mixin configs, so a class
+                    // there is always someone else's.
+                    if (name.contains('/')) allowedJarRoots.none(name::startsWith)
+                    else name.endsWith(".class")
+                }
+                .map { if (it.contains('/')) it.substringBeforeLast('/') + "/" else it }
+                .distinct()
+                .sorted()
+                .toList()
+        }
+        if (offenders.isNotEmpty()) {
+            throw GradleException(
+                "${jarFile.name} bundles unexpected entries:\n" +
+                    offenders.joinToString("\n") { "  $it" } +
+                    "\nEither relocate them in the msShadow block, or exclude them from the " +
+                    "dependency that pulls them in."
+            )
+        }
+    }
+}
+tasks.named("check") { dependsOn(verifyJarContents) }
 
 // Stonecutter constants for mod loaders.
 // See https://stonecutter.kikugie.dev/stonecutter/guide/comments#condition-constants
