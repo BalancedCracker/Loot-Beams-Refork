@@ -33,6 +33,10 @@ toolchain is pinned in `gradle/gradle-daemon-jvm.properties`, so a plain invocat
 Jars land in `versions/<target>/build/libs/`. `build` also runs `verifyJarContents`, which fails if
 the jar bundles anything that could shadow one of the game's own libraries.
 
+> **A note from the maintainer of this fork ([@BalancedCracker](https://github.com/BalancedCracker)):**
+> stuck? Ask Claude. ♡
+> (わからなかったら Claude に聞いてね♡)
+
 ## Licensing
 
 This fork is MIT licensed (see `LICENSE`). Upstream dedicates its work to the public domain under
