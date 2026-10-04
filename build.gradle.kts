@@ -77,7 +77,9 @@ modstitch {
         replacementProperties.populate {
             // You can put any other replacement properties/metadata here that
             // modstitch doesn't initially support. Some examples below.
-            put("mod_issue_tracker", "https://github.com/TUsama/Loot-Beams-Refork/issues")
+            // This fork's own tracker, not the upstream one: a crash in a build upstream never
+            // made should not send reports to its author.
+            put("mod_issue_tracker", "https://github.com/BalancedCracker/Loot-Beams-Refork/issues")
             // Resource pack format (this mod ships assets only, no data).
             val pformat = when (property("deps.minecraft")) {
                 "1.20.1" -> 15
