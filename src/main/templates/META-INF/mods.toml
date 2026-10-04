@@ -9,6 +9,9 @@ license = "${mod_license}"
     displayName = "${mod_name}"
     description = '''${mod_description}'''
     authors = "${mod_author}"
+    # Path relative to the jar root. This is what mod lists and launchers show as the icon;
+    # the Fabric equivalent is the "icon" field in fabric.mod.json.
+    logoFile = "assets/${mod_id}/${mod_id}.png"
 
 [[dependencies.${mod_id}]]
 modId = "forge"
