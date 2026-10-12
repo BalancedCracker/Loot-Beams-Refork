@@ -25,4 +25,4 @@ modId = "minecraft"
 versionRange = "${target_minecraft}"
 mandatory = true
 
-${nirvana_depends}
+${library_depends}

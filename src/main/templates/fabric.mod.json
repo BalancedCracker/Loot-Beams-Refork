@@ -20,7 +20,7 @@
   },
   "depends": {
     "fabricloader": ">=${target_fabricloader}",
-    "fabric-api": "*",${nirvana_depends}
+    "fabric-api": "*",${library_depends}
     "minecraft": "=${target_minecraft}"
   }
 }

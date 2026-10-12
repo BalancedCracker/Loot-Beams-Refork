@@ -25,4 +25,4 @@ versionRange = "[21,)"
 versionRange = "${target_minecraft}"
     type = "required"
 
-${nirvana_depends}
+${library_depends}

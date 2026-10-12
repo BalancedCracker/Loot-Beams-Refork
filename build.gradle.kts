@@ -118,11 +118,24 @@ modstitch {
             )
             put("fzzy_config_version", property("deps.fzzy_config_version") as String)
             put("lib_version", property("deps.lib_version") as String)
-            // The library-mod dependency entry, or nothing at all when the libraries are
-            // bundled. Each loader's manifest has its own syntax, and only ever reads its own.
+            // The library-mod dependency entry. Each loader's manifest has its own syntax, and
+            // only ever reads its own. NirvanaLib requires Fzzy Config, so declaring NirvanaLib
+            // used to cover Fzzy Config too. Targets that bundle the libraries have to declare
+            // Fzzy Config themselves; without it the loader starts the mod anyway and it dies
+            // with a NoClassDefFoundError instead of showing a missing-dependency screen.
+            val fzzyVersion = property("deps.fzzy_config_version")
             put(
-                "nirvana_depends", when {
-                    vendoredLibs -> ""
+                "library_depends", when {
+                    vendoredLibs && loader == "fabric" -> "\n    \"fzzy_config\": \">=${fzzyVersion}\","
+                    vendoredLibs -> """
+                        |
+                        |[[dependencies.${mid}]]
+                        |modId = "fzzy_config"
+                        |type = "required"
+                        |versionRange = "[${fzzyVersion},)"
+                        |ordering = "AFTER"
+                        |side = "CLIENT"
+                    """.trimMargin()
                     loader == "fabric" -> "\n    \"nirvana_lib\": \">=${property("deps.lib_version")}\","
                     else -> """
                         |
